@@ -10,7 +10,7 @@ public class Goods {
 		
 		private BigDecimal price;
 		
-		private Integer saleay;
+		private Integer saleay; 
 
 
 		public Integer getId() {
