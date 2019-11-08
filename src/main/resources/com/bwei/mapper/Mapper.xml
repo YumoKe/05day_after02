@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bwei.dao.GoodsDao">
+	<insert id="add">
+			insert into goods(id,name,price,saleay) values
+		<foreach collection="list" item="g" separator=",">
+			 (#{g.id},#{g.name},#{g.price},#{g.saleay})
+		</foreach>
+	</insert>
+	
+	<delete id="del">
+		delete from goods;
+	</delete>
+	
+	<select id="findAll" resultType="com.bwei.beans.Goods" parameterType="com.bwei.beans.MySort">
+		select * from goods where 1 = 1
+		<if test="(startPrice != null and startPrice != '') and(endPrice != null and endPrice != '')">
+			and price between #{startPrice} and #{endPrice}
+		</if>
+		
+		<if test="(startSaleay != null and startSaleay != '') and(endSaleay != null and endSaleay != '')">
+			and saleay between #{startSaleay} and #{endSaleay}
+		</if>
+		
+		<if test="(sort != null and sort != '') and (type != null and type != '')">
+			order by ${sort} ${type}
+		</if>
+	</select>
+</mapper>
